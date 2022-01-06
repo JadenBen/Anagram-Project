@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "anagrams work so far",
+			"path": "../../Desktop/anagrams work so far"
+		},
+		{
+			"name": "Anagram-Project",
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"iosfwd": "cpp"
+		}
+	}
+}
