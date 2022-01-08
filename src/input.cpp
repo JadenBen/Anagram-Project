@@ -1,13 +1,21 @@
 #include "input.hpp"
 #include "Platform/Platform.hpp"
+#include "helper.cpp"
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 
+//add_space func, explained in helper.cpp
+std::string add_spaces(std::string word)
+{
+	return " " + word + " ";
+}
+
+//construcyot
 Input::Input(std::string ui)
 {
-	user_input = ui;
+	user_input = add_spaces(ui);
 }
 //constructor function
 bool Input::word_check()
@@ -20,6 +28,7 @@ bool Input::word_check()
 	//"if while true" essentially. This is so the function doesn't get runned when the file isn't open
 	while (getline(words, line))
 	{
+		line = add_spaces(line);
 		pos = line.find(user_input); //iterates through each line to find (match) inputted user input
 		//https://www.codeproject.com/Questions/844342/How-Do-I-Search-For-A-Word-In-A-Text-File-In-Cplus
 		if (pos != std::string::npos)

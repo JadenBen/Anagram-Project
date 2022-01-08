@@ -17,13 +17,17 @@ Letters::Letters(int nw, int p)
 	points = p;
 }
 
+//function that selects what letters will be played with in the anagram game
 std::string Letters::get_letters()
 {
-
+	//letters chosen from here, the distribution of letters makes letters
+	//like z or x appear infrequently, because they are hard to make words with
 	std::array<std::string, 100> letters { "A", "A", "A", "A", "A", "A", "A", "A", "A", "B", "B", "C", "C", "D", "D", "D", "D", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "F", "F", "G", "G", "G", "H", "H", "I", "I", "I", "I", "I", "I", "I", "I", "J", "K", "L", "L", "L", "L", "M", "M", "N", "N", "N", "N", "N", "N", "O", "O", "O", "O", "O", "O", "O", "O", "P", "P", "Q", "R", "R", "R", "R", "R", "R", "S", "S", "S", "S", "T", "T", "T", "T", "T", "T", "U", "U", "U", "U", "V", "V", "W", "W", "X", "Y", "Y", "Z" };
 	std::array<std::string, 7> new_letters = { "", "", "", "", "", "", "" };
 	srand(time(0));
 	int random;
+
+	//loop puts 7 random letters into new_letters
 	for (int i = 0; i < numb_words; i++)
 	{
 		random = rand() % 101;

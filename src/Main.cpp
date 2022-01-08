@@ -2,13 +2,13 @@
 #include "Platform/Platform.hpp"
 #include "input.hpp"
 #include "letters.hpp"
+#include <algorithm>
+#include <cctype>
 #include <cmath>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm>
-#include <cctype>
 bool iteration(std::string let, std::string temp);
 bool iteration(std::string let, std::string temp)
 {
@@ -209,7 +209,9 @@ int main()
 			//if user presses a key on the keyboard
 			else if (event.type == sf::Event::KeyPressed)
 			{
-				//if statements checking which key was pressed
+				//if statements checking which key was pressed. There probably is a more efficient
+				//way of doing this then just putting a bunch of if statements,
+				//but this was fast and easy to implement
 				if (event.key.code == sf::Keyboard::A)
 				{
 					temp.push_back('a');
@@ -314,12 +316,23 @@ int main()
 				{
 					temp.push_back('z');
 				}
+
+				//player presses enter after writing the word
 				if (event.key.code == sf::Keyboard::Enter)
 				{
+					//initializing Input class object
 					Input input(temp);
-					std::cout << iteration(let, temp) << "     " << input.word_check();
-					if (iteration(let, temp)==1 and input.word_check()==1)
+
+					//this code was used for debugging an error we had with the word_check() function
+					//std::cout << iteration(let, temp) << "     " << input.word_check();
+
+					//iteration() function checks if the user only used letters that are available to them
+					//word_check() checks if their word is an actual english word. If both are true,
+					//their score increases
+					if (iteration(let, temp) == 1 and input.word_check() == 1)
 					{
+						//the longer the word, the more points are added
+						//words below the length of 3 dont get points
 						if (temp.length() == 3)
 						{
 							gamescore += 4;
@@ -345,8 +358,10 @@ int main()
 						temp = "";
 					}
 				}
+				//they can delete the letters they typed if they made a typo or their word wasnt a valid english word
 				if (event.key.code == sf::Keyboard::BackSpace)
 				{
+					//deletes character from back of string
 					temp = temp.substr(0, temp.size() - 1);
 				}
 				//space means the player wants to reset the game
@@ -368,7 +383,7 @@ int main()
 		}
 		//clear the window
 		window.clear();
-		//draw the text
+		//draw all the text
 		window.draw(text);
 		window.draw(user_text);
 		window.draw(time);
@@ -377,14 +392,16 @@ int main()
 		//refresh the windwo with the drawings
 		window.display();
 
-		if (gametime > 60)
+		if (gametime > 60) // game ends after 60 sec
 		{
 
-			//displays final score when time runs out
+			//repositions where the score is displayed and how big it is
 			score_number.setPosition(window.getSize().x / 2 - text_width / 2.f - 100.f, window.getSize().y / 2 - text_height / 2 - 15.f);
 			score_number.setCharacterSize(100);
-			score.setPosition(window.getSize().x / 2 - text_width / 2.f - 100.f, window.getSize().y / 2 - text_height / 2 - 15.f-100);
+			score.setPosition(window.getSize().x / 2 - text_width / 2.f - 100.f, window.getSize().y / 2 - text_height / 2 - 15.f - 100);
 			score.setCharacterSize(100);
+
+			//the end screen displays ths score in the middle of the screen
 			window.clear();
 			window.draw(score_number);
 			window.draw(score);
@@ -392,7 +409,8 @@ int main()
 
 			//stops the gameloop. To clarify, the space button isnt meant to replay the game, it is meant
 			//to give you a better set of letters if you got really bad ones.
-			while(true){
+			while (true)
+			{
 				std::cout << "";
 			}
 		}
