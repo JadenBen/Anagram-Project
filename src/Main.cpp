@@ -376,6 +376,7 @@ int main()
 					temp = "";
 					gametime = 0;
 					gamescore = 0;
+					score_number.setString(std::to_string(gamescore));
 				}
 				user_text.setString(temp);
 				//change position to accomdate new text size
